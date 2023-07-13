@@ -5,3 +5,7 @@ from .models import Listing
 def listing_list(request):
     listings = Listing.objects.all()
     return render(request, 'listings.html', {'listings': listings})
+
+def listing_retrieve(request, pk):
+    listing = Listing.objects.get(id=pk)
+    return render(request, 'listing.html', {'listing': listing})    
