@@ -20,3 +20,21 @@ def listing_create(request):
             return redirect('/')
     context = {'form': form}
     return render(request, 'create_form.html', context)
+
+def listing_update(request, pk):
+    listing = Listing.objects.get(id=pk)
+    form = ListingForm(instance=listing)
+
+    if request.method == 'POST':
+        form = ListingForm(request.POST, instance=listing)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        
+    context = {'form': form}
+    return render(request, 'listing_update.html', context)
+
+def listing_delete(request, pk):
+    listing = Listing.objects.get(id=pk)
+    listing.delete()
+    return redirect('/')
